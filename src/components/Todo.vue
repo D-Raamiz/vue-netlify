@@ -8,6 +8,17 @@
         </li>
       </ul>
     </div>
+
+    <div v-if="isProduction" class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3940256099942544"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true">
+        </ins>
+      </div>
+
   </template>
   
   <script>
@@ -17,6 +28,14 @@
         newTodo: ''
       };
     },
+    mounted() {
+    this.fetchData();
+    if (this.isProduction) {
+      this.loadAdsenseScript().then(() => {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      });
+    }
+  },
     computed: {
       todos() {
         return this.$store.state.todos;
@@ -31,7 +50,22 @@
       },
       deleteTodo(index) {
         this.$store.dispatch('deleteTodo', index);
-      }
+      },
+      loadAdsenseScript() {
+          return new Promise((resolve) => {
+            if (window.adsbygoogle) {
+              resolve();
+            } else {
+              const script = document.createElement('script');
+              script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+              script.async = true;
+              script.onload = () => {
+                resolve();
+              };
+              document.head.appendChild(script);
+            }
+          });
+        }
     }
   };
   </script>

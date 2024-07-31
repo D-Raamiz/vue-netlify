@@ -11,6 +11,24 @@ Vue.use(Vuex);
 export default function (Vue, { router, head, isClient }) {
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout);
+
+  // Register vue-google-adsense
+if (process.env.NODE_ENV === 'production') {
+  Vue.use(require('vue-script2'));
+  Vue.use(Ads.Adsense);
+  Vue.use(Ads.InArticleAdsense);
+  Vue.use(Ads.InFeedAdsense);
+
+  // Add the AdSense script
+  if (isClient) {
+    head.script.push({
+      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+      async: true,
+      'data-ad-client': 'ca-pub-3940256099942544',
+      crossorigin: 'anonymous'
+    });
+  }
+}
 }
 
 // This is the main.js file. Import global CSS and scripts here.
