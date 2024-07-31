@@ -1,15 +1,7 @@
 <template>
     <div>
-      <input v-model="newTodo" @keyup.enter="addTodo">
-      <ul>
-        <li v-for="(todo, index) in todos" :key="index" class="todo-item">
-          {{ todo }}
-          <button @click="deleteTodo(index)" class="delete-button">Delete</button>
-        </li>
-      </ul>
-    </div>
-
-    <div v-if="isProduction" class="ad-container">
+      <h1>AD Here</h1>
+      <div v-if="isProduction" class="ad-container">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-3940256099942544"
@@ -18,6 +10,15 @@
              data-full-width-responsive="true">
         </ins>
       </div>
+      <h1>ToDo List</h1>
+      <input v-model="newTodo" @keyup.enter="addTodo">
+      <ul>
+        <li v-for="(todo, index) in todos" :key="index" class="todo-item">
+          {{ todo }}
+          <button @click="deleteTodo(index)" class="delete-button">Delete</button>
+        </li>
+      </ul>
+    </div>
 
   </template>
   
